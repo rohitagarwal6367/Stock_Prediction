@@ -28,6 +28,8 @@ The app allows users to enter a stock ticker (e.g., `AAPL`, `RELIANCE.NS`, `TCS.
 ---
 
 ## 📂 Project Structure
+```
+
 📦 stock_price_prediction
 ┣ 📂 static
 ┃ ┣ 📜 ema_20_50.png
@@ -43,7 +45,7 @@ The app allows users to enter a stock ticker (e.g., `AAPL`, `RELIANCE.NS`, `TCS.
 ┣ 📜 .gitignore
 ┗ 📜 README.md
 
-
+````
 
 ---
 
@@ -52,29 +54,62 @@ The app allows users to enter a stock ticker (e.g., `AAPL`, `RELIANCE.NS`, `TCS.
 1. **Clone this repository**
    ```bash
    git clone https://github.com/rohitagarwal6367/Stock_Prediction.git
-   cd stock_Prediction
-   Create Virtual Environment
+   cd Stock_Prediction
+````
 
-python -m venv venv
-source venv/bin/activate   # For Mac/Linux
-venv\Scripts\activate      # For Windows
+2. **Create Virtual Environment**
 
-pip install -r requirements.txt
+   ```bash
+   python -m venv venv
+   ```
 
-python app.py
+3. **Activate Environment**
 
-📊 Example Tickers
-AAPL → Apple Inc.
-TSLA → Tesla Motors
-RELIANCE.NS → Reliance Industries (NSE India)
-TCS.NS → Tata Consultancy Services
+   * On **Windows**:
+
+     ```bash
+     venv\Scripts\activate
+     ```
+   * On **Mac/Linux**:
+
+     ```bash
+     source venv/bin/activate
+     ```
+
+4. **Install Dependencies**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+5. **Run the Application**
+
+   ```bash
+   python app.py
+   ```
+
+6. Open your browser and go to:
+   👉 `http://127.0.0.1:5000/`
+
+---
+
+## 📊 Example Tickers
+
+* `AAPL` → Apple Inc.
+* `TSLA` → Tesla Motors
+* `RELIANCE.NS` → Reliance Industries (NSE India)
+* `TCS.NS` → Tata Consultancy Services
+
+---
 
 ## 📞 Contact
 
 If you have any queries, suggestions, or issues regarding this project, feel free to reach out:
 
-- 📧 Email: rohitagarwal.se@gmail.com 
-- 🌐 GitHub: [Follow Me](https://github.com/rohitagarwal6367)  
-- 🔗 LinkedIn: [Connect With Me](https://www.linkedin.com/in/rohit-agarwal6367/)  
+* 📧 Email: **[rohitagarwal.se@gmail.com](mailto:rohitagarwal.se@gmail.com)**
+* 🌐 GitHub: [Follow Me](https://github.com/rohitagarwal6367)
+* 🔗 LinkedIn: [Connect With Me](https://www.linkedin.com/in/rohit-agarwal6367/)
 
 ---
+
+```
