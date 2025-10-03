@@ -111,5 +111,3 @@ If you have any queries, suggestions, or issues regarding this project, feel fre
 * 🔗 LinkedIn: [Connect With Me](https://www.linkedin.com/in/rohit-agarwal6367/)
 
 ---
-
-```
