@@ -52,14 +52,13 @@ The app allows users to enter a stock ticker (e.g., `AAPL`, `RELIANCE.NS`, `TCS.
 ## ⚙️ Installation & Setup
 
 1. **Clone this repository**
-   ```bash
+   ```
    git clone https://github.com/rohitagarwal6367/Stock_Prediction.git
    cd Stock_Prediction
-````
 
 2. **Create Virtual Environment**
 
-   ```bash
+   ```
    python -m venv venv
    ```
 
@@ -67,24 +66,24 @@ The app allows users to enter a stock ticker (e.g., `AAPL`, `RELIANCE.NS`, `TCS.
 
    * On **Windows**:
 
-     ```bash
+     ```
      venv\Scripts\activate
      ```
    * On **Mac/Linux**:
 
-     ```bash
+     ```
      source venv/bin/activate
      ```
 
 4. **Install Dependencies**
 
-   ```bash
+   ```
    pip install -r requirements.txt
    ```
 
 5. **Run the Application**
 
-   ```bash
+   ```
    python app.py
    ```
 
