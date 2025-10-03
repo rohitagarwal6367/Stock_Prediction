@@ -1,0 +1,16 @@
+# Web framework
+Flask==3.1.2
+
+# Data handling
+numpy==1.24.4
+pandas==2.0.3
+
+# Machine Learning
+scikit-learn==1.2.2
+yfinance==0.2.66
+matplotlib==3.7.1
+h5py==3.8.0
+
+# Deep Learning
+tensorflow==2.10.0
+keras==2.10.0
