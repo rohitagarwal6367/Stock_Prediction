@@ -14,3 +14,6 @@ h5py==3.8.0
 # Deep Learning
 tensorflow==2.10.0
 keras==2.10.0
+
+
+gunicorn
