@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from tensorflow.keras.models import load_model
 
 from flask import Flask, render_template, request, send_file
+from flask_cors import CORS  # ✅ NEW
 import datetime as dt
 import yfinance as yf
 from sklearn.preprocessing import MinMaxScaler
@@ -13,6 +14,7 @@ import gdown
 plt.style.use("fivethirtyeight")
 
 app = Flask(__name__)
+CORS(app)   # ✅ allow Vercel frontend
 
 # ==============================
 # ✅ MODEL DOWNLOAD SECTION
@@ -43,20 +45,28 @@ def index():
 @app.route('/predict', methods=['POST'])
 def predict():
     stock = request.form.get('stock')
+
     if not stock:
         stock = 'POWERGRID.NS'
-    
+
+    print(f"Processing stock: {stock}")  # ✅ logging
+
     start = dt.datetime(2000, 1, 1)
-    end = dt.datetime.now()   # 🔥 dynamic date
+    end = dt.datetime.now()
 
-    df = yf.download(stock, start=start, end=end)
+    # ✅ Error handling for API
+    try:
+        df = yf.download(stock, start=start, end=end)
+    except Exception as e:
+        return f"<h2 style='text-align:center;margin-top:50px;'>Error fetching data: {str(e)}</h2>"
 
+    # ✅ Handle invalid stock
     if df.empty:
-        return render_template('result.html', error="No data found for this stock ticker!")
+        return "<h2 style='text-align:center;margin-top:50px;'>❌ Invalid Stock Symbol</h2>"
 
     data_desc = df.describe()
 
-    # EMA
+    # EMA calculations
     ema20 = df.Close.ewm(span=20, adjust=False).mean()
     ema50 = df.Close.ewm(span=50, adjust=False).mean()
     ema100 = df.Close.ewm(span=100, adjust=False).mean()
@@ -97,7 +107,7 @@ def predict():
     ax1.plot(ema20, label='EMA 20')
     ax1.plot(ema50, label='EMA 50')
     ax1.legend()
-    ema_chart_path = "static/ema_20_50.png"
+    ema_chart_path = os.path.join("static", "ema_20_50.png")
     fig1.savefig(ema_chart_path)
     plt.close(fig1)
 
@@ -107,7 +117,7 @@ def predict():
     ax2.plot(ema100, label='EMA 100')
     ax2.plot(ema200, label='EMA 200')
     ax2.legend()
-    ema_chart_path_100_200 = "static/ema_100_200.png"
+    ema_chart_path_100_200 = os.path.join("static", "ema_100_200.png")
     fig2.savefig(ema_chart_path_100_200)
     plt.close(fig2)
 
@@ -116,29 +126,31 @@ def predict():
     ax3.plot(y_test, label='Original Price')
     ax3.plot(y_predicted, label='Predicted Price')
     ax3.legend()
-    prediction_chart_path = "static/stock_prediction.png"
+    prediction_chart_path = os.path.join("static", "stock_prediction.png")
     fig3.savefig(prediction_chart_path)
     plt.close(fig3)
 
     # Save CSV
-    csv_file_path = f"static/{stock}_dataset.csv"
+    csv_file_path = os.path.join("static", f"{stock}_dataset.csv")
     df.to_csv(csv_file_path)
 
-    return render_template('result.html',
-                           plot_path_ema_20_50=ema_chart_path,
-                           plot_path_ema_100_200=ema_chart_path_100_200,
-                           plot_path_prediction=prediction_chart_path,
-                           data_desc=data_desc.to_html(classes='table table-bordered'),
-                           dataset_link=csv_file_path)
+    return render_template(
+        'result.html',
+        plot_path_ema_20_50=ema_chart_path,
+        plot_path_ema_100_200=ema_chart_path_100_200,
+        plot_path_prediction=prediction_chart_path,
+        data_desc=data_desc.to_html(classes='table table-bordered'),
+        dataset_link=csv_file_path
+    )
 
 @app.route('/download/<filename>')
 def download_file(filename):
-    return send_file(f"static/{filename}", as_attachment=True)
+    return send_file(os.path.join("static", filename), as_attachment=True)
 
 # ==============================
-# ✅ PRODUCTION FIX (VERY IMPORTANT)
+# ✅ PRODUCTION RUN
 # ==============================
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))  # Render uses PORT
+    port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
